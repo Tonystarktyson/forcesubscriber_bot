@@ -3,10 +3,6 @@ import logging
 from pyrogram import Client
 from Config import Config
 
-print(os.environ.get("BOT_TOKEN"))
-print(os.environ.get("API_ID"))
-print(os.environ.get("API_HASH"))
-
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -23,7 +19,7 @@ if not Config.API_HASH:
     missing.append("API_HASH")
 
 if missing:
-    logging.error(f"Missing configuration: {', '.join(missing)}. Please update Config.py or .env.")
+    logging.error(f"Missing configuration: {', '.join(missing)}. Please set the environment variables in Railway.")
     sys.exit(1)
 
 # Plugins setup
@@ -51,4 +47,3 @@ try:
 except Exception as e:
     logging.exception(f"Failed to start the bot: {e}")
     sys.exit(1)
-
