@@ -3,6 +3,10 @@ import logging
 from pyrogram import Client
 from Config import Config
 
+print(os.environ.get("BOT_TOKEN"))
+print(os.environ.get("API_ID"))
+print(os.environ.get("API_HASH"))
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -47,3 +51,4 @@ try:
 except Exception as e:
     logging.exception(f"Failed to start the bot: {e}")
     sys.exit(1)
+
