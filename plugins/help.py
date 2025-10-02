@@ -30,7 +30,7 @@ def start(client, message):
             message.chat.id,
             text=tr.START_MSG.format(message.from_user.first_name, message.from_user.id),
             parse_mode="markdown",
-            reply_to_message_id=message.message_id
+            reply_to_message_id=message.id
         )
     except Exception as e:
         print(f"[ERROR] /start failed: {e}")
@@ -45,7 +45,7 @@ def help_command(client, message):
             parse_mode="markdown",
             disable_notification=True,
             reply_markup=InlineKeyboardMarkup(keyboard_map(1)),
-            reply_to_message_id=message.message_id
+            reply_to_message_id=message.id
         )
     except Exception as e:
         print(f"[ERROR] /help failed: {e}")
@@ -55,7 +55,7 @@ def help_command(client, message):
 def help_answer(client, callback_query):
     try:
         chat_id = callback_query.from_user.id
-        message_id = callback_query.message.message_id
+        message_id = callback_query.message.id
         pos = int(callback_query.data.split('+')[1])
 
         client.edit_message_text(
