@@ -1,10 +1,13 @@
 import os
+from dotenv import load_dotenv
 
-# Read environment variables directly (Railway injects these automatically)
+# Load .env variables
+load_dotenv()
+
+# Telegram API credentials
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
-API_ID = os.environ.get("API_ID", "").strip()
+API_ID = os.environ.get("API_ID")
 API_HASH = os.environ.get("API_HASH", "").strip()
-DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///bot.db").strip()
 
 # Validate API_ID
 try:
@@ -12,7 +15,10 @@ try:
 except (TypeError, ValueError):
     API_ID = 0
 
-# Check for missing critical configs
+# Database URL (fallback to SQLite)
+DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///bot.db")
+
+# Validate essential configs
 missing_configs = []
 if not BOT_TOKEN:
     missing_configs.append("BOT_TOKEN")
