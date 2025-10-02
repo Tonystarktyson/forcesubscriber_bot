@@ -1,7 +1,12 @@
 import sys
 import logging
 from pyrogram import Client
-from Config import Config
+from Config import BOT_TOKEN, API_ID, API_HASH, Messages
+
+# Debug: print variables to make sure Railway injected them
+print("BOT_TOKEN:", BOT_TOKEN)
+print("API_ID:", API_ID)
+print("API_HASH:", API_HASH)
 
 # Setup logging
 logging.basicConfig(
@@ -11,15 +16,15 @@ logging.basicConfig(
 
 # Validate Config
 missing = []
-if not Config.BOT_TOKEN:
+if not BOT_TOKEN:
     missing.append("BOT_TOKEN")
-if not Config.APP_ID:
-    missing.append("APP_ID")
-if not Config.API_HASH:
+if not API_ID:
+    missing.append("API_ID")
+if not API_HASH:
     missing.append("API_HASH")
 
 if missing:
-    logging.error(f"Missing configuration: {', '.join(missing)}. Please set the environment variables in Railway.")
+    logging.error(f"Missing configuration: {', '.join(missing)}. Please update Service Variables in Railway.")
     sys.exit(1)
 
 # Plugins setup
@@ -36,9 +41,9 @@ plugins = dict(
 try:
     app = Client(
         "eagle_eye",
-        bot_token=Config.BOT_TOKEN,
-        api_id=Config.APP_ID,
-        api_hash=Config.API_HASH,
+        bot_token=BOT_TOKEN,
+        api_id=API_ID,
+        api_hash=API_HASH,
         plugins=plugins
     )
     logging.info("Bot is starting...")
